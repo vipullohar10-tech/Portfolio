@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vipul Lohar — Virtual Assistant &amp; Social Media Manager</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap');
+
+:root{
+  --ink:#201D18;
+  --paper:#F1ECDF;
+  --paper-2:#E7DFCB;
+  --forest:#16332B;
+  --forest-light:#20493C;
+  --brass:#A67C3D;
+  --brass-light:#C79A54;
+  --stone:#726A5C;
+  --seal:#7A2E2E;
+  --line:rgba(32,29,24,0.16);
+}
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  margin:0;
+  background:var(--paper);
+  color:var(--ink);
+  font-family:'Inter',sans-serif;
+  font-size:16px;
+  line-height:1.6;
+}
+h1,h2,h3{
+  font-family:'Fraunces',serif;
+  font-weight:500;
+  margin:0;
+  color:var(--forest);
+}
+.eyebrow{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:12px;
+  letter-spacing:0.12em;
+  text-transform:uppercase;
+  color:var(--brass);
+  font-weight:500;
+}
+p{margin:0;}
+a{color:inherit;}
+
+/* ---- layout shell ---- */
+.shell{display:flex; max-width:1340px; margin:0 auto;}
+.tabs{
+  width:200px;
+  flex-shrink:0;
+  position:sticky;
+  top:0;
+  height:100vh;
+  padding:48px 0 48px 28px;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+}
+.tabs-top{display:flex; flex-direction:column; gap:5px;}
+.tab{
+  display:flex;
+  align-items:center;
+  font-family:'IBM Plex Mono',monospace;
+  font-size:13.5px;
+  letter-spacing:0.06em;
+  color:var(--stone);
+  text-decoration:none;
+  padding:15px 20px;
+  border:1px solid transparent;
+  border-right:none;
+  border-radius:8px 0 0 8px;
+  background:transparent;
+  position:relative;
+  transition:background .25s, color .25s, border-color .25s, padding-left .25s;
+}
+.tab span.num{color:var(--brass); margin-right:10px; font-size:13px;}
+.tab::before{
+  content:"";
+  position:absolute; left:0; top:50%;
+  width:3px; height:0;
+  background:var(--brass);
+  transform:translateY(-50%);
+  transition:height .25s ease;
+  border-radius:0 3px 3px 0;
+}
+.tab.active, .tab:hover{
+  background:var(--paper-2);
+  border-color:var(--line);
+  color:var(--forest);
+  padding-left:24px;
+}
+.tab.active::before, .tab:hover::before{height:22px;}
+.tab.active{font-weight:600;}
+.brand-mark{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:11px;
+  color:var(--stone);
+  padding:0 18px;
+  line-height:1.5;
+}
+.brand-mark b{color:var(--forest); display:block; font-size:12px; letter-spacing:.04em;}
+
+.pages{flex:1; min-width:0;}
+.page{
+  padding:64px 56px;
+  border-bottom:1px solid var(--line);
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+}
+.page:last-child{border-bottom:none;}
+.page-inner{max-width:660px;}
+
+/* ---- hero / home ---- */
+.hero h1{font-size:50px; line-height:1.1; margin:16px 0 20px; letter-spacing:-0.01em;}
+.intro-line{font-family:'Fraunces',serif; font-style:italic; font-size:24px; line-height:1.4; color:var(--stone); margin:12px 0 6px; font-weight:500;}
+.intro-line b{color:var(--forest); font-style:normal; font-weight:600; position:relative;}
+.intro-line b::after{
+  content:"";
+  position:absolute; left:0; right:0; bottom:-2px;
+  height:6px; background:var(--brass-light);
+  opacity:.35; z-index:-1; border-radius:2px;
+}
+.hero .sub{font-size:17.5px; color:var(--stone); max-width:540px; margin-bottom:30px;}
+
+/* ---- scroll reveal ---- */
+@keyframes fadeUp{
+  from{opacity:0; transform:translateY(18px);}
+  to{opacity:1; transform:translateY(0);}
+}
+.reveal{opacity:0;}
+.reveal.in-view{animation:fadeUp .7s cubic-bezier(.2,.7,.3,1) forwards;}
+.cta-row{display:flex; gap:14px; margin-bottom:44px; flex-wrap:wrap;}
+.btn{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:12px;
+  letter-spacing:.05em;
+  text-transform:uppercase;
+  padding:13px 22px;
+  border-radius:2px;
+  text-decoration:none;
+  display:inline-block;
+}
+.btn-primary{background:var(--forest); color:var(--paper); transition:transform .25s ease, box-shadow .25s ease;}
+.btn-secondary{border:1px solid var(--forest); color:var(--forest); transition:transform .25s ease, background .25s ease, color .25s ease;}
+.btn-primary:hover{transform:translateY(-2px); box-shadow:0 10px 20px -10px rgba(22,51,43,0.5);}
+.btn-secondary:hover{background:var(--forest); color:var(--paper); transform:translateY(-2px);}
+
+.stat-row{display:flex; align-items:center; gap:28px; flex-wrap:wrap;}
+.seal{
+  width:104px; height:104px; border-radius:50%;
+  border:2px solid var(--seal);
+  display:flex; align-items:center; justify-content:center;
+  flex-direction:column;
+  transform:rotate(-6deg);
+  flex-shrink:0;
+  position:relative;
+  transition:transform .4s ease;
+}
+.seal:hover{transform:rotate(0deg) scale(1.05);}
+.seal::before{
+  content:"";
+  position:absolute; inset:6px;
+  border:1px dashed var(--seal);
+  border-radius:50%;
+  opacity:.5;
+}
+.seal .n{font-family:'Fraunces',serif; font-weight:600; font-size:19px; color:var(--seal); line-height:1;}
+.seal .l{font-family:'IBM Plex Mono',monospace; font-size:8px; letter-spacing:.08em; color:var(--seal); text-transform:uppercase; margin-top:4px;}
+.stat-caption{font-size:14px; color:var(--stone); max-width:280px;}
+.stat-caption b{color:var(--ink);}
+
+.strip{display:grid; grid-template-columns:repeat(3, 1fr); gap:14px; margin-top:52px;}
+.strip-item{
+  border:1px solid var(--line);
+  border-top:3px solid var(--brass);
+  border-radius:6px;
+  padding:20px 20px 22px;
+  background:var(--paper-2);
+  transition:transform .3s ease, box-shadow .3s ease, background .3s ease;
+}
+.strip-item:hover{
+  transform:translateY(-4px);
+  box-shadow:0 14px 26px -18px rgba(32,29,24,0.35);
+  background:var(--paper);
+}
+.strip-item .eyebrow{margin-bottom:8px; display:block;}
+.strip-item p{font-size:14px; color:var(--stone); line-height:1.55;}
+
+/* ---- about ---- */
+.lede{font-size:19px; font-family:'Fraunces',serif; font-weight:400; color:var(--forest); line-height:1.5; margin-bottom:24px;}
+.chips{display:flex; flex-wrap:wrap; gap:8px; margin-top:28px;}
+.chip{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:11px; letter-spacing:.04em;
+  border:1px solid var(--line);
+  padding:7px 12px;
+  border-radius:20px;
+  color:var(--forest);
+  background:var(--paper-2);
+  transition:background .25s ease, border-color .25s ease, transform .25s ease;
+}
+.chip:hover{background:var(--brass-light); border-color:var(--brass-light); color:var(--forest); transform:translateY(-2px);}
+
+/* ---- services ---- */
+.svc-grid{
+  display:grid;
+  grid-template-columns:repeat(5, 1fr);
+  gap:1px;
+  background:var(--line);
+  border:1px solid var(--line);
+  margin-top:8px;
+}
+.svc-card{
+  background:var(--paper);
+  padding:30px 26px;
+  min-height:230px;
+  position:relative;
+  overflow:hidden;
+  opacity:0;
+  transform:translateY(14px);
+  transition:background .3s ease, box-shadow .3s ease, opacity .6s cubic-bezier(.2,.7,.3,1), transform .6s cubic-bezier(.2,.7,.3,1);
+}
+.svc-card.in-view{opacity:1; transform:translateY(0);}
+.svc-card:nth-child(1){transition-delay:.02s;}
+.svc-card:nth-child(2){transition-delay:.08s;}
+.svc-card:nth-child(3){transition-delay:.14s;}
+.svc-card:nth-child(4){transition-delay:.02s;}
+.svc-card:nth-child(5){transition-delay:.08s;}
+.svc-card:nth-child(6){transition-delay:.14s;}
+.svc-card:nth-child(7){transition-delay:.02s;}
+.svc-card:nth-child(8){transition-delay:.08s;}
+.svc-card:nth-child(9){transition-delay:.14s;}
+.svc-card:nth-child(10){transition-delay:.2s;}
+.svc-card.in-view:hover{transform:translateY(-4px);}
+.svc-card::before{
+  content:"";
+  position:absolute; top:0; left:0; right:0; height:3px;
+  background:var(--brass);
+  transform:scaleX(0);
+  transform-origin:left;
+  transition:transform .35s ease;
+}
+.svc-card:hover{
+  background:var(--paper-2);
+  transform:translateY(-4px);
+  box-shadow:0 14px 28px -18px rgba(32,29,24,0.35);
+  z-index:2;
+}
+.svc-card:hover::before{transform:scaleX(1);}
+.svc-card .svc-num{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:11px;
+  color:var(--brass);
+  display:block;
+  margin-bottom:12px;
+  letter-spacing:.08em;
+}
+.svc-card .eyebrow{margin-bottom:8px;}
+.svc-card h3{font-size:18px; margin-bottom:10px; line-height:1.25;}
+.svc-card ul{margin:0; padding-left:16px; font-size:13.5px; color:var(--stone);}
+.svc-card li{margin-bottom:5px;}
+.svc-note{font-size:13px; color:var(--stone); font-style:italic; margin-top:14px;}
+.svc-headline{display:flex; align-items:center; gap:14px; margin-bottom:6px; flex-wrap:wrap;}
+.svc-badge{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:11px; letter-spacing:.05em;
+  color:var(--seal);
+  border:1px solid var(--seal);
+  padding:4px 10px;
+  border-radius:20px;
+  text-transform:uppercase;
+}
+
+/* ---- process ---- */
+.timeline{display:flex; margin-top:10px; margin-bottom:40px;}
+.tl-step{flex:1; padding-right:16px; position:relative;}
+.tl-step::before{
+  content:"";
+  display:block;
+  height:2px;
+  background:var(--brass-light);
+  margin-bottom:14px;
+}
+.tl-step .idx{font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--brass); display:block; margin-bottom:6px;}
+.tl-step h3{font-size:15px; margin-bottom:5px;}
+.tl-step p{font-size:13px; color:var(--stone);}
+
+.tools-row{display:flex; flex-wrap:wrap; gap:8px; margin-top:8px; margin-bottom:36px;}
+.tool-tag{font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--stone); border:1px solid var(--line); padding:6px 10px; transition:border-color .25s ease, color .25s ease;}
+.tool-tag:hover{border-color:var(--brass); color:var(--forest);}
+
+.trust-grid{display:grid; grid-template-columns:1fr 1fr 1fr; gap:20px;}
+.trust-item .eyebrow{margin-bottom:6px;}
+.trust-item p{font-size:13px; color:var(--stone);}
+
+/* ---- contact ---- */
+.contact-grid{display:grid; grid-template-columns:1fr 1fr; gap:14px; margin:32px 0 40px;}
+.c-item{border:1px solid var(--line); padding:16px 18px;}
+.c-item .eyebrow{margin-bottom:6px;}
+.c-item p{font-size:15px;}
+.avail{display:flex; gap:24px; flex-wrap:wrap; margin-top:8px;}
+.avail div .eyebrow{margin-bottom:4px;}
+.avail div p{font-size:14px;}
+
+.footer-note{font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--stone); margin-top:56px;}
+
+/* ---- mobile ---- */
+@media (max-width:860px){
+  .shell{flex-direction:column;}
+  .tabs{
+    position:sticky; top:0; z-index:10;
+    width:100%; height:auto; flex-direction:row;
+    padding:14px 16px; background:var(--paper); border-bottom:1px solid var(--line);
+    overflow-x:auto;
+  }
+  .tabs-top{flex-direction:row; gap:6px;}
+  .brand-mark{display:none;}
+  .tab{white-space:nowrap; border-radius:20px; border:1px solid transparent; padding:10px 16px; font-size:12px;}
+  .tab::before{display:none;}
+  .tab.active, .tab:hover{padding-left:16px;}
+  .page{padding:44px 24px; min-height:auto;}
+  .hero h1{font-size:32px;}
+  .intro-line{font-size:16px;}
+  .svc-grid{grid-template-columns:1fr;}
+  .strip{grid-template-columns:1fr;}
+  .timeline{flex-direction:column; gap:18px;}
+  .tl-step{padding-right:0;}
+  .trust-grid{grid-template-columns:1fr;}
+  .contact-grid{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+
+<div class="shell">
+  <nav class="tabs">
+    <div class="tabs-top">
+      <a class="tab active" href="#home"><span class="num">01</span>Home</a>
+      <a class="tab" href="#about"><span class="num">02</span>About</a>
+      <a class="tab" href="#services"><span class="num">03</span>Services</a>
+      <a class="tab" href="#process"><span class="num">04</span>Process</a>
+      <a class="tab" href="#contact"><span class="num">05</span>Contact</a>
+    </div>
+    <div class="brand-mark">
+      <b>Vipul Lohar</b>
+      Virtual Assistant &amp;<br>Social Media Manager<br>Rajasthan, India
+    </div>
+  </nav>
+
+  <main class="pages">
+
+    <!-- 01 HOME -->
+    <section class="page hero" id="home">
+      <div class="page-inner reveal">
+        <span class="eyebrow">01 — Home</span>
+        <p class="intro-line">Hi, I'm <b>Vipul Lohar</b> — a Virtual Assistant &amp; Social Media Manager based in Rajasthan, India.</p>
+        <h1>Your business, organized.<br>Your social media, consistent.</h1>
+        <p class="sub">Virtual Assistant &amp; Social Media Manager for coaches, consultants, and small business owners who need their inbox, calendar, and social media handled — reliably, every week.</p>
+        <div class="cta-row">
+          <a class="btn btn-secondary" href="#services">See services</a>
+        </div>
+
+        <div class="stat-row">
+          <div class="seal">
+            <span class="n">2K→6K</span>
+            <span class="l">Verified result</span>
+          </div>
+          <p class="stat-caption"><b>Instagram followers grown</b> for Beads for Bonds, a handmade jewellery brand, through consistent content and engagement — 3+ months, ongoing.</p>
+        </div>
+
+        <div class="strip">
+          <div class="strip-item">
+            <span class="eyebrow">Availability</span>
+            <p>Daily execution & support (up to 15 hours/week). Consistent progress, every single day.</p>
+          </div>
+          <div class="strip-item">
+            <span class="eyebrow">Reliability</span>
+            <p>Zero missed deadlines across concurrent clients.</p>
+          </div>
+          <div class="strip-item">
+            <span class="eyebrow">Low-risk start</span>
+            <p>Discounted 3-day trial before any retainer.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 02 ABOUT -->
+    <section class="page" id="about">
+      <div class="page-inner reveal">
+        <span class="eyebrow">02 — About</span>
+        <h2 style="font-size:30px; margin:14px 0 22px;">A systems mindset, applied to your business.</h2>
+        <p class="lede">I studied Data Science &amp; AI at IIT Guwahati — then found that the same instinct for turning scattered information into clear systems is exactly what a growing business needs behind the scenes.</p>
+        <p style="color:var(--stone); font-size:15px; max-width:520px;">I manage inboxes, calendars, research, and social media for coaches, consultants, and small business owners — so nothing depends on memory, yours or mine. My biggest ongoing project is running Instagram for Beads for Bonds, where steady weekly effort, not one lucky post, took the account from ~2,000 to nearly 6,000 followers.</p>
+        <div class="chips">
+          <span class="chip">Detail-oriented</span>
+          <span class="chip">Daily communication</span>
+          <span class="chip">Confidential by default</span>
+          <span class="chip">Fast learner</span>
+          <span class="chip">India / US / UK / AU time zones</span>
+          <span class="chip">BSc (Hons) Data Science &amp; AI — IIT Guwahati</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- 03 SERVICES -->
+    <section class="page" id="services">
+      <div class="page-inner reveal" style="max-width:1040px;">
+        <span class="eyebrow">03 — Services</span>
+        <div class="svc-headline">
+          <h2 style="font-size:30px; margin:14px 0 0;">Ten ways I take work off your plate.</h2>
+          <span class="svc-badge">Social media–first</span>
+        </div>
+        <p style="color:var(--stone); font-size:15px; max-width:600px; margin-bottom:22px;">A focused stack built around growing and running your social presence — from strategy through to the DMs that turn into customers.</p>
+        <div class="svc-grid">
+          <div class="svc-card">
+            <span class="svc-num">01</span>
+            <span class="eyebrow">Strategy</span>
+            <h3>Content strategy &amp; planning</h3>
+            <ul>
+              <li>Content pillars &amp; monthly calendar</li>
+              <li>Competitor research</li>
+              <li>Campaign &amp; launch planning</li>
+            </ul>
+          </div>
+          <div class="svc-card">
+            <span class="svc-num">02</span>
+            <span class="eyebrow">Community</span>
+            <h3>Community management</h3>
+            <ul>
+              <li>Daily comment &amp; DM replies</li>
+              <li>Spam &amp; complaint handling</li>
+              <li>Response within 24 hours</li>
+            </ul>
+          </div>
+          <div class="svc-card">
+            <span class="svc-num">03</span>
+            <span class="eyebrow">Video</span>
+            <h3>Reels &amp; video editing</h3>
+            <ul>
+              <li>CapCut &amp; DaVinci Resolve</li>
+              <li>Captions, cuts, transitions, sound</li>
+              <li>Reels &amp; YouTube Shorts</li>
+            </ul>
+          </div>
+          <div class="svc-card">
+            <span class="svc-num">04</span>
+            <span class="eyebrow">Design</span>
+            <h3>Canva graphic design</h3>
+            <ul>
+              <li>Posts, carousels, Stories</li>
+              <li>Thumbnails &amp; banners</li>
+              <li>Reusable brand templates</li>
+            </ul>
+          </div>
+          <div class="svc-card">
+            <span class="svc-num">05</span>
+            <span class="eyebrow">Discovery</span>
+            <h3>Hashtag &amp; SEO research</h3>
+            <ul>
+              <li>Niche &amp; trending hashtags</li>
+              <li>Instagram &amp; YouTube SEO</li>
+              <li>Keyword-informed captions</li>
+            </ul>
+          </div>
+          <div class="svc-card">
+            <span class="svc-num">06</span>
+            <span class="eyebrow">Publishing</span>
+            <h3>Scheduling &amp; publishing</h3>
+            <ul>
+              <li>Buffer / Later / Meta Business Suite</li>
+              <li>Optimized posting times</li>
+              <li>Cross-platform posting</li>
+            </ul>
+          </div>
+          <div class="svc-card">
+            <span class="svc-num">07</span>
+            <span class="eyebrow">Insights</span>
+            <h3>Analytics &amp; monthly reporting</h3>
+            <ul>
+              <li>Reach, saves, engagement, growth</li>
+              <li>Best / worst performing posts</li>
+              <li>Clear report, backed by a data science background</li>
+            </ul>
+          </div>
+          <div class="svc-card">
+            <span class="svc-num">08</span>
+            <span class="eyebrow">Leads</span>
+            <h3>Lead capture &amp; inquiry management</h3>
+            <ul>
+              <li>Spot &amp; qualify buying signals</li>
+              <li>Tracked in a live leads sheet</li>
+              <li>Booking links &amp; follow-ups</li>
+            </ul>
+          </div>
+          <div class="svc-card">
+            <span class="svc-num">09</span>
+            <span class="eyebrow">AI-assisted</span>
+            <h3>Faster, human-checked work</h3>
+            <ul>
+              <li>ChatGPT, Claude &amp; Gemini for research</li>
+              <li>First-draft captions &amp; copy</li>
+              <li>Every output reviewed before it's sent</li>
+            </ul>
+          </div>
+          <div class="svc-card">
+            <span class="svc-num">10</span>
+            <span class="eyebrow">Admin</span>
+            <h3>Inbox, calendar &amp; admin</h3>
+            <ul>
+              <li>Email &amp; calendar management</li>
+              <li>Appointment scheduling</li>
+              <li>SOPs, CRM updates, meeting notes</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 04 PROCESS -->
+    <section class="page" id="process">
+      <div class="page-inner reveal" style="max-width:760px;">
+        <span class="eyebrow">04 — Process</span>
+        <h2 style="font-size:30px; margin:14px 0 22px;">How we'd start working together.</h2>
+        <div class="timeline">
+          <div class="tl-step"><span class="idx">01</span><h3>Discovery call</h3><p>Free, 20 minutes — your goals and bottlenecks.</p></div>
+          <div class="tl-step"><span class="idx">02</span><h3>3-day trial</h3><p>Discounted, no long-term commitment.</p></div>
+          <div class="tl-step"><span class="idx">03</span><h3>Onboarding</h3><p>Access setup, priorities agreed in writing.</p></div>
+          <div class="tl-step"><span class="idx">04</span><h3>Ongoing support</h3><p>Daily execution, daily check-ins.</p></div>
+          <div class="tl-step"><span class="idx">05</span><h3>Reporting</h3><p>Weekly summary, monthly growth report.</p></div>
+        </div>
+
+        <span class="eyebrow">Tools</span>
+        <div class="tools-row">
+          <span class="tool-tag">Gmail / Outlook</span>
+          <span class="tool-tag">Google Calendar</span>
+          <span class="tool-tag">Calendly</span>
+          <span class="tool-tag">Canva</span>
+          <span class="tool-tag">Buffer / Later</span>
+          <span class="tool-tag">Trello / Asana</span>
+          <span class="tool-tag">Notion</span>
+          <span class="tool-tag">Google Workspace</span>
+          <span class="tool-tag">ChatGPT · Claude · Gemini</span>
+        </div>
+
+        <div class="trust-grid">
+          <div class="trust-item"><span class="eyebrow">Confidentiality</span><p>Client data and accounts are never shared or reused. NDA on request.</p></div>
+          <div class="trust-item"><span class="eyebrow">Quality check</span><p>Every deliverable checked against your brand before it goes out.</p></div>
+          <div class="trust-item"><span class="eyebrow">Guarantee</span><p>Focused on sustainable, organic growth through consistent execution, data-backed strategy, and zero missed deadlines.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 05 CONTACT -->
+    <section class="page" id="contact">
+      <div class="page-inner reveal">
+        <span class="eyebrow">05 — Contact</span>
+        <h2 style="font-size:32px; margin:14px 0 14px;">Let's get hours back in your week.</h2>
+        <p style="color:var(--stone); font-size:15px; max-width:480px; margin-bottom:8px;">Tell me what's taking up too much time — I'll reply within one business day to schedule a free discovery call.</p>
+
+        <div class="contact-grid">
+          <div class="c-item"><span class="eyebrow">Email</span><p>vipul10.business@gmail.com</p></div>
+          <div class="c-item"><span class="eyebrow">Phone / WhatsApp</span><p>+91-9413782120</p></div>
+          <div class="c-item"><span class="eyebrow">LinkedIn</span><p>linkedin.com/in/vipul-9aaa3640a</p></div>
+          <div class="c-item"><span class="eyebrow">Location</span><p>Rajasthan, India</p></div>
+        </div>
+
+        <div class="avail">
+          <div><span class="eyebrow">Hours</span><p>10–15 hrs/week</p></div>
+          <div><span class="eyebrow">Response time</span><p>Within 24 hrs</p></div>
+          <div><span class="eyebrow">Starts</span><p>Immediately</p></div>
+        </div>
+
+        <p class="footer-note">© Vipul Lohar — Virtual Assistant &amp; Social Media Manager</p>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<script>
+const tabs = document.querySelectorAll('.tab');
+const sections = document.querySelectorAll('.page');
+const io = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      tabs.forEach(t=>t.classList.remove('active'));
+      const match = document.querySelector('.tab[href="#'+e.target.id+'"]');
+      if(match) match.classList.add('active');
+    }
+  });
+}, {threshold:0.5});
+sections.forEach(s=>io.observe(s));
+
+/* Scroll reveal animation for section content + service cards */
+const revealTargets = document.querySelectorAll('.reveal, .svc-card');
+const revealIO = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.classList.add('in-view');
+      revealIO.unobserve(e.target);
+    }
+  });
+}, {threshold:0.15});
+revealTargets.forEach(el=>revealIO.observe(el));
+</script>
+
+</body>
+</html>
